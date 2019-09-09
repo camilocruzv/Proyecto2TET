@@ -1,8 +1,21 @@
 version: '2'
 services:
+  nginx:
+    container_name: nginx-server
+    image: nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - app
   app: 
     container_name: frontend-twitter
     restart: always
     build: .
     ports:
-      - '80:4000'
+      - '3000:3000'
+    environment:
+      NODE_ENV:
