@@ -12,7 +12,7 @@ services:
     depends_on:
       - app
   app: 
-    container_name: frontend-twitter
+    container_name: webserver
     restart: always
     build: .
     ports:
