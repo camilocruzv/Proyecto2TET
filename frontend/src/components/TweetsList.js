@@ -32,13 +32,13 @@ export default class TweetsList extends Component {
     }
 
     async getTweets() {
-        const res = await axios.get('http://192.168.10.145:4000/api/tweets');
+        const res = await axios.get('http://localhost:4000/api/tweets');
         this.setState({ tweets: res.data });
     }
 
     addTweet(e) {
         if (this.state._id) {
-            fetch('http://192.168.10.145:4000/api/tweets/' + this.state._id, {
+            fetch('http://localhost:4000/api/tweets/' + this.state._id, {
                 method: 'PUT',
                 body: JSON.stringify(this.state),
                 headers: {
@@ -54,7 +54,7 @@ export default class TweetsList extends Component {
                     this.fetchTweets();
                 })
         } else {
-            fetch('http://192.168.10.145:4000/api/tweets', {
+            fetch('http://localhost:4000/api/tweets', {
                 method: 'POST',
                 body: JSON.stringify(this.state),
                 headers: {
@@ -75,7 +75,7 @@ export default class TweetsList extends Component {
     }
 
     editTweet(id) {
-        fetch('http://192.168.10.145:4000/api/tweets/' + id)
+        fetch('http://localhost:4000/api/tweets/' + id)
             .then(res => res.json())
             .then(data => {
                 console.log(data)
@@ -89,7 +89,7 @@ export default class TweetsList extends Component {
 
     deleteTweet(id) {
         //if (confirm('¿Estás seguro de querer eliminar el tweet?')) {
-        fetch('http://192.168.10.145:4000/api/tweets/' + id, {
+        fetch('http://localhost:4000/api/tweets/' + id, {
             method: "DELETE",
             headers: {
                 'Accept': 'application/json',
@@ -106,7 +106,7 @@ export default class TweetsList extends Component {
     }
 
     async fetchTweets() {
-        const res = await axios.get('http://192.168.10.145:4000/api/tweets');
+        const res = await axios.get('http://localhost:4000/api/tweets');
         this.setState({ tweets: res.data });
     }
 
@@ -130,14 +130,11 @@ export default class TweetsList extends Component {
                     <Link to="/"><button className="btn btn-light" type="submit">Salir</button></Link>
                 </nav>
 
-                
-                <div className="col-md-8 offset-md-5 mb-4">
-                <div className="form-inline ">
-                    <input className="form-control mr-sm-2" onChange={this.handleChange} type="text" name="buscar" placeholder="Buscar" value={this.state.buscar} aria-label="Search"></input>
+                <div className="form-inline col-md-6 offset-md-3 mb-4">
+                    <input className="form-control mr-sm-2 col-md-6 offset-md-3" onChange={this.handleChange} type="text" name="buscar" placeholder="Buscar" value={this.state.buscar} aria-label="Search"></input>
                     <button className="btn btn-primary" onClick={this.handleClick} type="submit">Buscar</button>
-                    </div>
                 </div>
-                
+
                 <br /><br />
 
                 <div className="col-md-6 offset-md-3 mb-4">

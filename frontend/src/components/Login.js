@@ -16,18 +16,20 @@ export default class Login extends Component {
             token: '',
             error: '',
             usuario: '',
-            password: ''
+            password: '',
+            password2: ''
         };
 
         this.handleChangeUsuario = this.handleChangeUsuario.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
+        this.handleChangePassword2 = this.handleChangePassword2.bind(this);
         this.signIn = this.signIn.bind(this);
     }
 
     componentDidMount() {
         const token = getFromStorage('the_main_app');
         if (token) {
-            fetch('http://192.168.10.145:4000/api/users/verify?token=' + token)
+            fetch('http://localhost:4000/api/users/verify?token=' + token)
                 .then(res => res.json())
                 .then(json => {
                     if (json.success) {
@@ -60,20 +62,28 @@ export default class Login extends Component {
         });
     }
 
+    handleChangePassword2(e) {
+        this.setState({
+            password2: e.target.value,
+        });
+    }
+
     signIn() {
         const {
             usuario,
-            password
+            password,
+            password2
         } = this.state;
 
-        fetch('http://192.168.10.145:4000/api/users/signin', {
+        fetch('http://localhost:4000/api/users/signin', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 usuario: usuario,
-                password: password
+                password: password,
+                password2: password2
             }),
         }).then(res => res.json())
             .then(json => {
@@ -98,7 +108,8 @@ export default class Login extends Component {
             isLoading,
             error,
             usuario,
-            password
+            password,
+            password2
         } = this.state;
 
         if (isLoading) {
@@ -131,6 +142,12 @@ export default class Login extends Component {
                                         <div className="input-group">
                                             <span className="input-group-addon"><i className="fa fa-lock"></i></span>
                                             <input type="password" className="form-control" name="password" placeholder="Contraseña" required="required" value={password} onChange={this.handleChangePassword}></input>
+                                        </div>
+                                    </div>
+                                    <div className="form-group">
+                                        <div className="input-group">
+                                            <span className="input-group-addon"><i className="fa fa-lock"></i></span>
+                                            <input type="password" className="form-control" name="password" placeholder="Confirmar contraseña" required="required" value={password2} onChange={this.handleChangePassword2}></input>
                                         </div>
                                     </div>
                                     <br />

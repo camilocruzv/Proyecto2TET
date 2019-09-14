@@ -68,7 +68,8 @@ router.post('/signin', (req, res, next) => {
     const { body } = req;
     const {
         usuario,
-        password
+        password,
+        password2
     } = body;
 
     if (!usuario) {
@@ -83,6 +84,12 @@ router.post('/signin', (req, res, next) => {
             message: 'Error: Digite la contraseña'
         })
     }
+    if (!password2) {
+        return res.send({
+            success: false,
+            message: 'Error: Digite la confirmación de la contraseña'
+        })
+    }
 
     User.find({
         usuario: usuario
@@ -95,7 +102,7 @@ router.post('/signin', (req, res, next) => {
         } else if (users.length != 1) {
             return res.send({
                 success: false,
-                message: 'Error: el usuario o la contraseña son incorrectas'
+                message: 'Error: El usuario o la contraseña son incorrectas'
             });
         }
 
@@ -103,7 +110,7 @@ router.post('/signin', (req, res, next) => {
         if (!user.validPassword(password)) {
             return res.send({
                 success: false,
-                message: 'Error: el usuario o la contraseña son incorrectas'
+                message: 'Error: El usuario o la contraseña son incorrectas'
             });
         }
 
@@ -114,6 +121,13 @@ router.post('/signin', (req, res, next) => {
                 return res.send({
                     success: false,
                     message: 'Error de servidor'
+                })
+            }
+
+            if (password != password2) {
+                return res.send({
+                    success: false,
+                    message: 'Las contraseñas no coinciden'
                 })
             }
 

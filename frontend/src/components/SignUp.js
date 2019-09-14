@@ -35,7 +35,7 @@ export default class SignUp extends Component {
             password
         } = this.state;
 
-        fetch('http://192.168.10.145:4000/api/users/signup', {
+        fetch('http://localhost:4000/api/users/signup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
