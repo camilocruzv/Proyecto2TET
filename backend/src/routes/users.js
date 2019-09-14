@@ -140,7 +140,7 @@ router.post('/signin', (req, res, next) => {
     });
 });
 
-router.post('/verify', (req, res, next) => {
+router.get('/verify', (req, res, next) => {
     const { query } = req;
     const { token } = query;
 

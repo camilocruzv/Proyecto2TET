@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import axios from 'axios';
 
 export default class TweetsList extends Component {
@@ -11,14 +10,39 @@ export default class TweetsList extends Component {
             tweet: '',
             tweets: [],
             _id: '',
-            buscar: ''
+            buscar: '',
+            token: '',
+            isLoading: true,
         };
         this.handleChange = this.handleChange.bind(this);
         this.addTweet = this.addTweet.bind(this);
+        this.logout = this.logout.bind(this);
     }
 
     componentDidMount() {
         //this.setState({ usuario: "@ccruzvi" });
+        const obj = window.localStorage.getItem('key');
+        console.log(obj);
+        if (obj) {
+            fetch('http://localhost:4000/api/users/verify?token=' + obj)
+                .then(res => res.json())
+                .then(json => {
+                    if (json.success) {
+                        this.setState({
+                            token: obj,
+                            isLoading: false
+                        })
+                    } else {
+                        this.setState({
+                            isLoading: false
+                        })
+                    }
+                });
+        } else {
+            this.setState({
+                isLoading: false
+            });
+        }
         const usuario = window.localStorage.getItem('usuario');
         this.setState({ usuario: '@' + usuario });
         this.getTweets();
@@ -122,12 +146,56 @@ export default class TweetsList extends Component {
         }
     }
 
+    logout() {
+        this.setState({
+            isLoading: true,
+        })
+        const obj = window.localStorage.getItem('key');
+        console.log(obj);
+        if (obj) {
+            fetch('http://localhost:4000/api/users/logout?token=' + obj)
+                .then(res => res.json())
+                .then(json => {
+                    if (json.success) {
+                        this.setState({
+                            token: '',
+                            isLoading: false
+                        })
+                    } else {
+                        this.setState({
+                            isLoading: false
+                        })
+                    }
+                });
+        } else {
+            this.setState({
+                isLoading: false
+            });
+        }
+        this.props.history.push("/");
+    }
+
     render() {
+
+        const {
+            isLoading,
+            token
+        } = this.state;
+
+        if (isLoading) {
+            return (<div><p>Loading...</p></div>);
+        }
+
+        console.log("token: " + token);
+        if (!token) {
+            this.props.history.push("/");
+        }
+
         return (
             <div>
                 <nav className="navbar navbar-dark bg-primary mb-4 h1">
                     <span className="navbar-brand mx-auto">Twitter</span>
-                    <Link to="/"><button className="btn btn-light" type="submit">Salir</button></Link>
+                    <button onClick={this.logout} className="btn btn-light" type="submit">Salir</button>
                 </nav>
 
                 <div className="form-inline col-md-6 offset-md-3 mb-4">

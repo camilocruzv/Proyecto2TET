@@ -9,12 +9,36 @@ export default class Search extends Component {
             tweets: [],
             _id: '',
             buscar: '',
-            usuario: ''
+            usuario: '',
+            token: '',
+            isLoading: true,
         };
         this.handleChange = this.handleChange.bind(this);
     }
 
     componentDidMount() {
+        const obj = window.localStorage.getItem('key');
+        console.log(obj);
+        if (obj) {
+            fetch('http://localhost:4000/api/users/verify?token=' + obj)
+                .then(res => res.json())
+                .then(json => {
+                    if (json.success) {
+                        this.setState({
+                            token: obj,
+                            isLoading: false
+                        })
+                    } else {
+                        this.setState({
+                            isLoading: false
+                        })
+                    }
+                });
+        } else {
+            this.setState({
+                isLoading: false
+            });
+        }
         const usuario = window.localStorage.getItem('usuario');
         this.setState({ usuario: '@' + usuario });
 
@@ -66,6 +90,21 @@ export default class Search extends Component {
     }
 
     render() {
+
+        const {
+            isLoading,
+            token
+        } = this.state;
+
+        if (isLoading) {
+            return (<div><p>Loading...</p></div>);
+        }
+
+        console.log("token: " + token);
+        if (!token) {
+            this.props.history.push("/");
+        }
+
         return (
             <div>
                 <nav className="navbar navbar-dark bg-primary mb-4 h1">

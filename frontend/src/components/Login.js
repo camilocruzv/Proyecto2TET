@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 
 import {
     getFromStorage,
+    setInStorage,
 } from '../utils/storage'
 
 export default class Login extends Component {
@@ -17,7 +18,8 @@ export default class Login extends Component {
             error: '',
             usuario: '',
             password: '',
-            password2: ''
+            password2: '',
+            masterError: ''
         };
 
         this.handleChangeUsuario = this.handleChangeUsuario.bind(this);
@@ -27,8 +29,9 @@ export default class Login extends Component {
     }
 
     componentDidMount() {
-        const token = getFromStorage('the_main_app');
-        if (token) {
+        const obj = getFromStorage('the_main_app');
+        if (obj && obj.token) {
+            const { token } = obj;
             fetch('http://localhost:4000/api/users/verify?token=' + token)
                 .then(res => res.json())
                 .then(json => {
@@ -89,10 +92,13 @@ export default class Login extends Component {
             .then(json => {
                 console.log(json);
                 if (json.success) {
+                    setInStorage('the_main_app', { token: json.token });
                     window.localStorage.setItem('usuario', usuario);
+                    window.localStorage.setItem('key', json.token);
                     this.props.history.push("/tweets");
                     this.setState({
                         error: json.message,
+                        token: json.token,
                     });
                 } else {
                     this.setState({
