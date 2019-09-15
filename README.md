@@ -14,16 +14,15 @@
 
 Desarrollar (Marco de Referencia, Requisitos, Diseño e Implementación) y Desplegar una Aplicación Web Escalable en nube que incluya atributos de calidad como: Disponibilidad, Rendimiento y Seguridad.
 
+# 1. Cambios realizados en terminos generales 
+* [Rediseño de la aplicación con respecto a proyecto 1](cambios.md)
 
-# 1. Disponibilidad
-
+# 2. Disponibilidad
 * [Análisis y diseño de la Disponibilidad](disponibilidad.md)
 
-# 2. Rendimiento
-
+# 3. Rendimiento
 * [Análisis y diseño del Rendimiento](rendimiento.md)
 
-# 3. Seguridad
-
+# 4. Seguridad
 * [Análisis y diseño de la Seguridad](seguridad.md)
 
