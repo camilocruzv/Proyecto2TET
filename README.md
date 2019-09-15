@@ -2,9 +2,9 @@
 
 ## Integrantes 
 
-- Camilo Cruz Villegas - ccruzvi@eafit.edu.co
-- Juan Pablo Gonzalez Álvarez - jugonz31@eafit.edu.co
-- Cristian Villamizar Ochoa - cvillam8@eafit.edu.co
+- Camilo Cruz Villegas - ccruzvi@eafit.edu.co - Rendimiento
+- Juan Pablo Gonzalez Álvarez - jugonz31@eafit.edu.co - Disponibilidad
+- Cristian Villamizar Ochoa - cvillam8@eafit.edu.co - Seguridad
 
 ## Despliegue en AWS
 
@@ -17,13 +17,13 @@ Desarrollar (Marco de Referencia, Requisitos, Diseño e Implementación) y Despl
 
 # 1. Disponibilidad
 
-* [Análisis y Diseño de la Disponibilidad](disponibilidad.md)
+* [Análisis y diseño de la Disponibilidad](disponibilidad.md)
 
 # 2. Rendimiento
 
-* [Análisis y Diseño del Rendimiento](rendimiento.md)
+* [Análisis y diseño del Rendimiento](rendimiento.md)
 
 # 3. Seguridad
 
-* [Análisis y Diseño de la Seguridad](seguridad.md)
+* [Análisis y diseño de la Seguridad](seguridad.md)
 
