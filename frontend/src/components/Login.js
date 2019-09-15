@@ -57,7 +57,7 @@ export default class Login extends Component {
         const obj = getFromStorage('the_main_app');
         if (obj && obj.token) {
             const { token } = obj;
-            fetch('http://localhost:4000/api/users/verify?token=' + token)
+            fetch('http://3.224.113.218:4000/api/users/verify?token=' + token)
                 .then(res => res.json())
                 .then(json => {
                     if (json.success) {
@@ -103,7 +103,7 @@ export default class Login extends Component {
             password2
         } = this.state;
 
-        fetch('http://localhost:4000/api/users/signin', {
+        fetch('http://3.224.113.218:4000/api/users/signin', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

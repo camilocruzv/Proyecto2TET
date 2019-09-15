@@ -26,7 +26,7 @@ export default class Search extends Component {
                 isLoading: false
             })
         } else if (obj) {
-            fetch('http://localhost:4000/api/users/verify?token=' + obj)
+            fetch('http://3.224.113.218:4000/api/users/verify?token=' + obj)
                 .then(res => res.json())
                 .then(json => {
                     if (json.success) {
@@ -67,18 +67,18 @@ export default class Search extends Component {
     }
 
     async getTweetsUser(busqueda) {
-        const res = await axios.get('http://localhost:4000/api/tweets/search_user/' + busqueda);
+        const res = await axios.get('http://3.224.113.218:4000/api/tweets/search_user/' + busqueda);
         this.setState({ tweets: res.data });
     }
 
     async getTweets(busqueda) {
-        const res = await axios.get('http://localhost:4000/api/tweets/search_tweet/' + busqueda);
+        const res = await axios.get('http://3.224.113.218:4000/api/tweets/search_tweet/' + busqueda);
         this.setState({ tweets: res.data });
     }
 
     deleteTweet(id) {
         const busqueda = this.state.buscar
-        fetch('http://localhost:4000/api/tweets/' + id, {
+        fetch('http://3.224.113.218:4000/api/tweets/' + id, {
             method: "DELETE",
             headers: {
                 'Accept': 'application/json',
