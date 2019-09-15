@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import firebase from "firebase"
 
 export default class TweetsList extends Component {
 
@@ -23,7 +24,13 @@ export default class TweetsList extends Component {
         //this.setState({ usuario: "@ccruzvi" });
         const obj = window.localStorage.getItem('key');
         console.log(obj);
-        if (obj) {
+        const auth = window.localStorage.getItem('firebase');
+        if (auth) {
+            this.setState({
+                token: "key",
+                isLoading: false
+            })
+        } else if (obj) {
             fetch('http://localhost:4000/api/users/verify?token=' + obj)
                 .then(res => res.json())
                 .then(json => {
@@ -152,7 +159,11 @@ export default class TweetsList extends Component {
         })
         const obj = window.localStorage.getItem('key');
         console.log(obj);
-        if (obj) {
+        const auth = window.localStorage.getItem('firebase');
+        if (auth) {
+            window.localStorage.setItem("firebase", false)
+            firebase.auth().signOut()
+        } else if (obj) {
             fetch('http://localhost:4000/api/users/logout?token=' + obj)
                 .then(res => res.json())
                 .then(json => {

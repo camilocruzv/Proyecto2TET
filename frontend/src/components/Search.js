@@ -19,7 +19,13 @@ export default class Search extends Component {
     componentDidMount() {
         const obj = window.localStorage.getItem('key');
         console.log(obj);
-        if (obj) {
+        const auth = window.localStorage.getItem('firebase');
+        if (auth) {
+            this.setState({
+                token: "key",
+                isLoading: false
+            })
+        } else if (obj) {
             fetch('http://localhost:4000/api/users/verify?token=' + obj)
                 .then(res => res.json())
                 .then(json => {
@@ -44,7 +50,9 @@ export default class Search extends Component {
 
         const busqueda = window.localStorage.getItem('busqueda');
         this.setState({ buscar: busqueda });
-        if (busqueda.includes('@')) {
+        if (busqueda == null) {
+            
+        } else if (busqueda.includes('@')) {
             this.getTweetsUser(busqueda);
         } else {
             this.getTweets(busqueda);

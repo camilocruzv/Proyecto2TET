@@ -1,12 +1,30 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import firebase from "firebase"
+import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth"
 
 import {
     getFromStorage,
     setInStorage,
 } from '../utils/storage'
 
+firebase.initializeApp({
+    apiKey: "AIzaSyCM2ceD0rNpjg0NM3lFCvyCGSHrqF2K-1w",
+    authDomain: "fir-auth-bbb94.firebaseapp.com"
+})
+
 export default class Login extends Component {
+
+    uiConfig = {
+        signInFlow: "popup",
+        signInOptions: [
+            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+        ],
+        callbacks: {
+            signInSuccessWithAuthResult: () => false
+        }
+    }
 
     constructor(props) {
         super(props);
@@ -19,7 +37,8 @@ export default class Login extends Component {
             usuario: '',
             password: '',
             password2: '',
-            masterError: ''
+            masterError: '',
+            isSignedIn: false
         };
 
         this.handleChangeUsuario = this.handleChangeUsuario.bind(this);
@@ -29,6 +48,12 @@ export default class Login extends Component {
     }
 
     componentDidMount() {
+
+        firebase.auth().onAuthStateChanged(user => {
+            this.setState({ isSignedIn: !!user })
+            console.log("user", user);
+          })
+
         const obj = getFromStorage('the_main_app');
         if (obj && obj.token) {
             const { token } = obj;
@@ -130,6 +155,13 @@ export default class Login extends Component {
                         <center><p style={{ color: 'red' }}>{error}</p></center>
                     ) : (null)
                 }
+
+                {this.state.isSignedIn ? (
+                    window.localStorage.setItem("firebase", true),
+                    //console.log(window.localStorage.getItem('firebase'))
+                    window.localStorage.setItem("usuario", firebase.auth().currentUser.displayName),
+                    this.props.history.push("/tweets")
+                ) : (
                 <div className="row">
                     <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
                         <div className="card card-signin my-5">
@@ -137,6 +169,11 @@ export default class Login extends Component {
                                 <div className="login-form">
 
                                     <h2 className="text-center">Ingresar</h2>
+                                    <br />
+                                    <StyledFirebaseAuth
+                                        uiConfig={this.uiConfig}
+                                        firebaseAuth={firebase.auth()}
+                                    />
                                     <br /><br />
                                     <div className="form-group">
                                         <div className="input-group">
@@ -167,6 +204,7 @@ export default class Login extends Component {
                         </div>
                     </div>
                 </div>
+                )}
             </div>
         )
     }
