@@ -1,3 +1,5 @@
+# Diseño de la Disponibilidad
+
 Para el componente de disponibilidad se ha desarrollado un balanceador de cargas con Nginx.
 
 Tambien se ha utilizado la herramienta de balanceador de cargas de AWS para el frontend. Esto nos permite tener desplegado el Frontend en dos maquinas, distribuyendo el tráfico de forma apropiada:
