@@ -4,4 +4,4 @@ Para el componente de seguridad se realizaron varios cambios, entre ellos realiz
 
 Al momento de registrar un usuario se realiza un cifrado de contraseñas con el fin de que esta permanezca segura. Asegurandole al usuario de esta forma su registro e ingreso a nuestra plataforma.
 
-Ademas de estos desarrollos realizados tambien se implementó el manejo de sesiones. Por medio de tokens se comprueba si la persona que esta utilizando la app realmente ha ingresado, en caso que si, se le permite a esta persona acceder a ciertas paginas.
+Ademas de estos desarrollos realizados tambien se implementó el manejo de sesiones. Por medio de tokens se comprueba si la persona que esta utilizando la app realmente ha ingresado, en caso que si, se le permite a esta persona acceder a ciertas paginas. Si no ha ingresado, esta persona no puede tener acceso a algunas paginas.
