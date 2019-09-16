@@ -2,9 +2,9 @@
 
 ## Integrantes 
 
-- Camilo Cruz Villegas - ccruzvi@eafit.edu.co - Rendimiento
+- Camilo Cruz Villegas - ccruzvi@eafit.edu.co - Seguridad
 - Juan Pablo Gonzalez Álvarez - jugonz31@eafit.edu.co - Disponibilidad
-- Cristian Villamizar Ochoa - cvillam8@eafit.edu.co - Seguridad
+- Cristian Villamizar Ochoa - cvillam8@eafit.edu.co - Rendimiento
 
 ## Despliegue en AWS
 
